@@ -1,8 +1,10 @@
 import Footer from "@/components/shared/Footer";
 import Navbar from "@/components/shared/Navbar";
 import { cn } from "@/lib/utils";
+import ReactQueryClientProvider from "@/providers/ReactQueryClientProvider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const inter = Inter({
@@ -20,14 +22,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={cn(inter.className, "antialiased")}>
-        <Navbar />
-        <main className="min-h-[calc(100vh-160px)] w-full bg-zinc-50">
-          {children}
-        </main>
-        <Footer />
-      </body>
+    <html lang="en" suppressHydrationWarning>
+      <ReactQueryClientProvider>
+        <body className={cn(inter.className, "antialiased")}>
+          <Navbar />
+          <Toaster position="top-center" richColors />
+          <main className="min-h-[calc(100vh-160px)] w-full bg-zinc-50">
+            {children}
+          </main>
+          <Footer />
+        </body>
+      </ReactQueryClientProvider>
     </html>
   );
 }

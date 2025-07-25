@@ -25,6 +25,8 @@ import {
   Video,
   Wallet,
 } from "lucide-react";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const FOR_CLIENTS = [
   {
