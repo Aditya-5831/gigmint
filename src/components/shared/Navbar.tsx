@@ -8,7 +8,7 @@ import MaxWidthWrapper from "./MaxWidthWrapper";
 
 const Navbar = () => {
   const { data } = useSession();
-  console.log("session", data?.user);
+  // console.log("session", data?.user);
 
   return (
     <nav className="sticky inset-x-0 top-0 z-[100] h-20 w-full border-b border-gray-200 bg-white/80 backdrop-blur-lg">

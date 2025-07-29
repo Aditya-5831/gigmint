@@ -22,6 +22,7 @@ import { useMutation } from "@tanstack/react-query";
 import { signIn } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const SignInForm = () => {
   const form = useForm<SignInFormValues>({
@@ -83,26 +84,34 @@ const SignInForm = () => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <div className="relative flex items-center">
-                    <Lock className="absolute left-4 size-4" />
-                    <Input
-                      {...field}
-                      placeholder="password"
-                      className="h-10 pl-12"
-                    />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className="flex flex-col gap-2">
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <div className="relative flex items-center">
+                      <Lock className="absolute left-4 size-4" />
+                      <Input
+                        {...field}
+                        placeholder="password"
+                        className="h-10 pl-12"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Link
+              href={"/forgot-password"}
+              className="text-primary text-end text-sm hover:underline"
+            >
+              Forgot password?
+            </Link>
+          </div>
           <Button disabled={isPending} className="w-full" type="submit">
             {isPending ? (
               <Loader2 className="size-5 animate-spin text-white" />
