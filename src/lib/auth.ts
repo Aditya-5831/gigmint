@@ -18,12 +18,16 @@ export const auth = betterAuth({
           sendOTP({
             to: email,
             otp,
-            subject: type,
-            type: subject,
+            subject,
           });
         }
         if (type === "email-verification") {
-          subject === "Email Verification OTP";
+          subject = "Email Verification OTP";
+          sendOTP({
+            to: email,
+            otp,
+            subject,
+          });
         }
       },
     }),

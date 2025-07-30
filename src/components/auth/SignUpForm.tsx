@@ -1,6 +1,6 @@
 "use client";
 
-import { signUp } from "@/lib/auth-client";
+import { emailOtp, signUp } from "@/lib/auth-client";
 import {
   signUpFormSchema,
   SignUpFormValues,
@@ -23,9 +23,10 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import CountrySelect from "./CountrySelect";
+import { updateSearchParams } from "@/lib/utils";
 
 const SignUpForm = () => {
-  const role = useSearchParams().get("role");
+  const searchParams = useSearchParams();
   const router = useRouter();
 
   const form = useForm<SignUpFormValues>({
@@ -39,6 +40,13 @@ const SignUpForm = () => {
     },
   });
 
+  const sendVerificationEmail = async (email: string) => {
+    await emailOtp.sendVerificationOtp({
+      email,
+      type: "email-verification",
+    });
+  };
+
   const { mutate, isPending } = useMutation({
     mutationFn: (values: SignUpFormValues) =>
       signUp.email({
@@ -48,16 +56,23 @@ const SignUpForm = () => {
         email: values.email,
         password: values.password,
         country: values.country,
-        role: role ?? "client",
+        role: searchParams.get("role") ?? "client",
       }),
 
-    onSuccess: (data) => {
-      if (data.error) {
-        toast.error(data.error.message);
+    onSuccess: ({ data, error }) => {
+      if (error) {
+        toast.error(error.message);
       } else {
+        sendVerificationEmail(data.user.email);
+
         form.reset();
         toast.success("Registration successful");
-        router.push("/");
+
+        const newQuery = updateSearchParams(searchParams.toString(), {
+          email: data.user.email,
+        });
+
+        router.push(`/email-verification${newQuery}`);
       }
     },
   });
