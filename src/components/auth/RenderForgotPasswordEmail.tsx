@@ -1,17 +1,19 @@
 import { render } from "@react-email/render";
 import React from "react";
-import ForgotPasswordEmail from "./ForgotPasswordEmail";
+import EmailMessage from "./EmailMessage";
 
 interface RenderForgotPasswordEmailProps {
   email: string;
   otp: string;
+  type: string;
 }
 
-const RenderForgotPasswordEmail = async ({
+const RenderEmailMessage = async ({
   email,
+  type,
   otp,
 }: RenderForgotPasswordEmailProps): Promise<string> => {
-  return render(<ForgotPasswordEmail email={email} otp={otp} />);
+  return render(<EmailMessage email={email} otp={otp} type={type} />);
 };
 
-export default RenderForgotPasswordEmail;
+export default RenderEmailMessage;

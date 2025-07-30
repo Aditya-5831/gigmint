@@ -28,7 +28,14 @@ export const resetPasswordFormSchema = z.object({
     .min(8, { message: "Password must be 8 characters long." }),
 });
 
+export const emailVerificationFormSchema = z.object({
+  otp: z.string().min(6, { message: "Invalid OTP." }),
+});
+
 export type SignUpFormValues = z.infer<typeof signUpFormSchema>;
 export type SignInFormValues = z.infer<typeof signInFormSchema>;
 export type ForgotPasswordFormValues = z.infer<typeof forgotPasswordFormSchema>;
 export type ResetPasswordFormValues = z.infer<typeof resetPasswordFormSchema>;
+export type EmailVerificationFormValues = z.infer<
+  typeof emailVerificationFormSchema
+>;

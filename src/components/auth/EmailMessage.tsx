@@ -8,12 +8,13 @@ import {
   Text,
 } from "@react-email/components";
 
-interface ForgotPasswordEmailProps {
+interface EmailMessageProps {
   email: string;
   otp: string;
+  type: string;
 }
 
-const ForgotPasswordEmail = ({ otp, email }: ForgotPasswordEmailProps) => {
+const EmailMessage = ({ otp, email, type }: EmailMessageProps) => {
   return (
     <Html>
       <Head />
@@ -69,8 +70,8 @@ const ForgotPasswordEmail = ({ otp, email }: ForgotPasswordEmailProps) => {
           <Text
             style={{ fontSize: "16px", color: "#374151", marginBottom: "24px" }}
           >
-            We received a request to reset your password. Use the one-time
-            password (OTP) below to complete the process.
+            We received a request to {type}. Use the one-time password (OTP)
+            below to complete the process.
           </Text>
 
           <Section
@@ -122,4 +123,4 @@ const ForgotPasswordEmail = ({ otp, email }: ForgotPasswordEmailProps) => {
   );
 };
 
-export default ForgotPasswordEmail;
+export default EmailMessage;
